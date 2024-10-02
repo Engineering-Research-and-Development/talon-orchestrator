@@ -1,0 +1,11 @@
+
+
+services:
+  uploader-downloader:
+    build: .
+    environment:
+      - CURATION_URL=https://talon-curation-api.cluster1.alidalab.it
+    ports:
+      - "8501:8501"
+    env_file:
+      - config.env

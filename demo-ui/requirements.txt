@@ -1,0 +1,10 @@
+boto3 
+minio 
+progressbar 
+pandas
+alida-apis
+streamlit_extras
+streamlit_vertical_slider
+matplotlib
+plotly
+st-pages
