@@ -1,0 +1,3 @@
+Id;Task;Name;;;Dataset;Mae;Accuracy;Precision;F1;Execution time;Energy consumption;CPU usage;Max memory allocation
+1;Time series interpolation;ts_linear_interpolation;;;Delhi time series;0.021;NA;NA;NA;0.001240;NA;NA;NA
+2;;ts_pad_interpolation;;;Delhi time series;0.028;NA;NA;NA;0.000410;NA;NA;NA

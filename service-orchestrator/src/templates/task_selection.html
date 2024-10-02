@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Select Task{% endblock %}
+
+{% block content %}
+    <div class="card">
+        <h2>Select Task</h2>
+        <form method="POST">
+            <div class="form-group">
+                <label for="task">Choose which task you want to perform:</label>
+                <select name="task" id="task" class="material-select">
+                    {% for title, task in tasks.items() %}
+                        <option value="{{ task }}">{{ title }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">
+                Configure Task
+            </button>
+        </form>
+    </div>
+{% endblock %}

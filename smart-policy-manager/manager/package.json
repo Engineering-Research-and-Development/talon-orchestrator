@@ -1,0 +1,20 @@
+{
+    "name": "talon-backend",
+    "version": "1.0.0",
+    "description": "Talon Flask API Server",
+    "scripts": {},
+    "repository": {
+        "type": "gitlab",
+        "url": "https://gitlab.ubitech.eu/pdml/talon/talon-python.git"
+    },
+    "bugs": {
+        "url": "https://gitlab.ubitech.eu/pdml/talon/talon-python/-/issues",
+        "email": "support@appseed.us"
+    },
+    "author": "Georgia CHatzimarkaki",
+    "engines": {
+        "node": ">=10.0.0"
+    },
+    "dependencies": {},
+    "devDependencies": {}
+}

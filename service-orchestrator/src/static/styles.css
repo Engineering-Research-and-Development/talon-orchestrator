@@ -1,0 +1,23 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+#pod-status {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+#charts {
+    margin-bottom: 20px;
+}
+
+#kpis {
+    display: flex;
+    justify-content: space-around;
+}
+
+#kpis div {
+    text-align: center;
+}

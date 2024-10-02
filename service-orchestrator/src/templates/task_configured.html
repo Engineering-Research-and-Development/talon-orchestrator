@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %}Select Task{% endblock %}
+
+{% block content %}
+    <style>
+        * {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+          }
+          
+          body {
+            font-family: sans-serif;
+            padding: 40px;
+          }
+          
+        .slider-wrapper {
+            display: inline-block;
+            margin: 3rem;
+        }
+          
+          input[orient=vertical] {
+            -webkit-appearance: slider-vertical;
+            height: 25ve;
+            padding: 0 20px;
+            width: 20px;
+            writing-mode: bt-lr;
+          }  
+          
+          // Firefox Overrides
+          ::-moz-range-track {
+              background: #ccc;
+              border: 0;
+          }
+          
+          input::-moz-focus-inner { 
+            border: 0; 
+          }          
+    </style>
+    <div class="card">
+        <h2>Configure Task: {{ task }}</h2>
+
+        <form method="POST">
+            <div class="slider-container">
+                {% for metric in sliders %}
+                <div class="slider-wrapper">
+                    <div class="slider-label">{{ mapper[metric] }}</div>
+                    <input type="range" min="0" max="100" value="50" class="slider input-range" orient="vertical" name="{{ metric }}" id="{{ metric }}_slider" oninput="updateValue('{{ metric }}')">
+                    <div class="slider-value" id="{{ metric }}_value">50</div>
+                </div>
+                {% endfor %}
+            </div>
+            <button type="submit"  class="btn btn-primary" style="margin-top: 20px;">Deploy Model</button>
+        </form>
+
+        <script>
+            function updateValue(metric) {
+                var slider = document.getElementById(metric + '_slider');
+                var valueDisplay = document.getElementById(metric + '_value');
+                valueDisplay.textContent = slider.value;
+            }
+        </script>
+    </div>
+{% endblock %}

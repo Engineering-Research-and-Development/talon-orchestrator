@@ -1,0 +1,12 @@
+services:
+  smart-policy-manager:
+    image: gitlab.alidalab.it:5000/talon/smart-policy-manager/smart-policy-manager:1.0.0
+    container_name: talon_api
+    #restart: always
+    env_file: .env
+    build: .
+    ports:
+      - "5000:5000"
+    # command: flask tests
+    # command: tail -f /dev/null
+

@@ -1,0 +1,116 @@
+stages:
+  - build
+  - test
+  - publish
+  - analyze
+
+variables:
+  PYTHON_VERSION: "3.10.6"
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+
+before_script:
+  - python -V # Print Python version for debugging purposes
+  - test -d .venv || python -m venv .venv
+  - source .venv/bin/activate
+  - echo "Ensuring dependencies are installed:"
+  - pip install -r requirements.txt
+
+cache:
+  key: ${CI_COMMIT_REF_SLUG} #ensures that the cache is unique for each branch
+  paths:
+    - .cache/pip
+    - .venv/
+
+build:
+  stage: build
+  image: python:$PYTHON_VERSION
+  script:
+    - python run.py build &
+    - exit
+  only:
+    - master
+    - dev
+    - tags
+
+pytest:
+  stage: test
+  image: python:$PYTHON_VERSION
+  variables:
+    FLASK_APP: run.py
+  script:
+    - echo "Running tests..."
+    - flask tests
+  allow_failure: true
+  only:
+    - master
+    - dev
+    - tags
+
+unittest:
+  stage: test
+  variables:
+    FLASK_APP: run.py
+  image: python:$PYTHON_VERSION
+  script:
+    - echo "Running tests..."
+    - flask unittests
+  only:
+    - master
+    - dev
+    - tags
+
+docker:latest:
+  before_script:
+    - echo "Docker deployment"
+  stage: publish
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [""]
+  script:
+    - mkdir -p /kaniko/.docker
+    - echo "{\"auths\":{\"${CI_REGISTRY}\":{\"auth\":\"$(printf "%s:%s" "${CI_REGISTRY_USER}" "${CI_REGISTRY_PASSWORD}" | base64 | tr -d '\n')\"}}}" > /kaniko/.docker/config.json
+    - >-
+      /kaniko/executor 
+      --context "${CI_PROJECT_DIR}" 
+      --dockerfile "${CI_PROJECT_DIR}/Dockerfile" 
+      --destination "${CI_REGISTRY}/pdml/talon/${CI_PROJECT_NAME}:latest"
+  only:
+    refs:
+      - master
+
+docker:tag:
+  before_script:
+    - echo "Docker deployment"
+  stage: publish
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [""]
+  script:
+    - mkdir -p /kaniko/.docker
+    - echo "{\"auths\":{\"${CI_REGISTRY}\":{\"auth\":\"$(printf "%s:%s" "${CI_REGISTRY_USER}" "${CI_REGISTRY_PASSWORD}" | base64 | tr -d '\n')\"}}}" > /kaniko/.docker/config.json
+    - >-
+      /kaniko/executor 
+      --context "${CI_PROJECT_DIR}" 
+      --dockerfile "${CI_PROJECT_DIR}/Dockerfile" 
+      --destination "${CI_REGISTRY}/pdml/talon/${CI_PROJECT_NAME}:${CI_COMMIT_REF_NAME}"
+  only:
+    refs:
+      - tags
+
+sonarqube:
+  before_script:
+    - echo "Docker deployment"
+  stage: analyze
+  only:
+    - master
+    - dev
+  allow_failure: true
+  image:
+    name: sonarsource/sonar-scanner-cli:latest
+    entrypoint: [""]
+  variables:
+    SONAR_HOST_URL: ${SONAR_HOST_URL}
+    SONAR_LOGIN: ${SONAR_TOKEN}
+  script:
+    - echo "Running static code analysis..."
+    - sonar-scanner -Dsonar.host.url=$SONAR_HOST_URL -Dsonar.login=$SONAR_TOKEN

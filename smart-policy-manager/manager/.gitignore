@@ -1,0 +1,9 @@
+flask/
+*.pyc
+dev
+api/apidata.db
+yarn.lock
+yarn-error.log
+*.psd
+env/
+env__/

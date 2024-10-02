@@ -1,0 +1,112 @@
+{
+	"info": {
+		"_postman_id": "e3d013b4-5956-44a4-bbe1-4b7512b961fc",
+		"name": "Python API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17366305",
+		"_collection_link": "https://ubi-pdml.postman.co/workspace/Talon~92342022-3a86-4aa4-b98f-06c4020eb30b/collection/17366305-e3d013b4-5956-44a4-bbe1-4b7512b961fc?action=share&creator=17366305&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "test",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HOST}}/api/{{API_VERSION}}/test",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"api",
+						"{{API_VERSION}}",
+						"test"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "successful",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/api/{{API_VERSION}}/test",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"{{API_VERSION}}",
+								"test"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "Werkzeug/2.3.6 Python/3.10.6"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 23 Jun 2023 12:20:47 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "56"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": \"SUCCESS\",\n    \"message\": \"Hello world\"\n}"
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "HOST",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "API_VERSION",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

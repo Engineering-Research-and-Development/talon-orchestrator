@@ -1,0 +1,9 @@
+Metric,Objective,Calc_using,Optimize_for,Better_results,Faster_results,Greener_AI,Cost
+Mae,Min,,,1,,,
+Accuracy,Max,,,1,,,
+Precision,Max,,,1,,,
+F1,Max,,,1,,,
+Execution time,Min,,,,1,,
+Energy consumption,Min,AI Generated stats/Prometheus,,,,1,1
+CPU Usage,Min,AI Generated stats/Prometheus,,,,1,1
+Max memory allocation,Min,,,,,1,1
